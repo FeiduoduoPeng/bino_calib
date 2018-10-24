@@ -24,6 +24,7 @@
 using namespace cv;
 using namespace std;
 
+std::mutex pfmutex;
 pthread_t ce_cam_capture_calib_thread;
 bool ce_cam_capture_calib_stop_run = false;
 
@@ -107,7 +108,7 @@ static void* ce_cam_capture_calib(lrImg &plr)
     {
         if(!img_pkg_list_d1.try_pop(img_lr_pkg))
         {
-            usleep(1000);
+            usleep(50000);	//sleep 50 ms
             continue;
         }
 
@@ -121,41 +122,26 @@ static void* ce_cam_capture_calib(lrImg &plr)
 
 
         // get the image
+        pfmutex.lock();
         memcpy(img_left.data, img_lr_pkg->left_img->data, ce_config_get_cf_img_size());
         memcpy(img_right.data,img_lr_pkg->right_img->data,ce_config_get_cf_img_size());
+        pfmutex.unlock();
 
 
-        int ret_left = findChessboardCorners(img_left, board_size, corners_left,
-                    CALIB_CB_ADAPTIVE_THRESH | CALIB_CB_NORMALIZE_IMAGE);/* 提取角点 */
+        //int ret_left = findChessboardCorners(img_left, board_size, corners_left,
+        //            CALIB_CB_ADAPTIVE_THRESH | CALIB_CB_NORMALIZE_IMAGE);/* 提取角点 */
 
-        cvtColor(img_left, img_left_corners, COLOR_GRAY2BGR);
-        drawChessboardCorners(img_left_corners, board_size, corners_left, ret_left);
+        //cvtColor(img_left, img_left_corners, COLOR_GRAY2BGR);
+        //drawChessboardCorners(img_left_corners, board_size, corners_left, ret_left);
 
-        int ret_right = findChessboardCorners(img_right, board_size, corners_right,
-                    CALIB_CB_ADAPTIVE_THRESH | CALIB_CB_NORMALIZE_IMAGE);/* 提取角点 */
+        //int ret_right = findChessboardCorners(img_right, board_size, corners_right,
+        //            CALIB_CB_ADAPTIVE_THRESH | CALIB_CB_NORMALIZE_IMAGE);/* 提取角点 */
 
-        cvtColor(img_right, img_right_corners, COLOR_GRAY2BGR);
-        drawChessboardCorners(img_right_corners, board_size, corners_right, ret_right);
+        //cvtColor(img_right, img_right_corners, COLOR_GRAY2BGR);
+        //drawChessboardCorners(img_right_corners, board_size, corners_right, ret_right);
 
         plr.left = img_left.clone();
         plr.right = img_right.clone();
-    //    ce_merge_img(result,img_left_corners,img_right_corners);
-
-    //    ////////////////////////////////////////////////
-
-    //    cv::imshow("result",result);
-
-    //    cv::waitKey(1);
-
-    //    if (g_bSaveImg && ret_left && ret_right)
-    //    {
-    //        cnt_save++;
-    //        stringstream ss;
-    //        ss << cnt_save;
-    //        cv::imwrite("left"+ss.str()+".jpg",img_left);
-    //        cv::imwrite("right"+ss.str()+".jpg",img_right);
-    //        g_bSaveImg = false;
-    //    }
 
         delete img_lr_pkg->left_img;
         delete img_lr_pkg->right_img;

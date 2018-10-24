@@ -6,7 +6,7 @@ bool myRgbCalibration(const std::vector<cv::Mat> &img_vec){
 
 bool myBinocularCalibration(){
     QProcess *proc = new QProcess;
-    proc->start("./stereo_calib -w=10 -h=11 stereo_calib.xml");	//it's working!
+    proc->start("./bin/CETOOL_CALI_STEREO_CAL -w=10 -h=11 ./stereo_calib.xml");	//it's working!
     return true;
 }
 

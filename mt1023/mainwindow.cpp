@@ -13,7 +13,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     //timer = new QTimer(this);
 
-
     //p_th = new myThread();
     //qRegisterMetaType<cv::Mat>("cv::Mat");
     //qRegisterMetaType<lrImg>("lrImg");
@@ -91,7 +90,6 @@ void MainWindow::on_pushButton_one_clicked()
         }
     }
     timer->start(100);
-
 }
 
 void MainWindow::accept(){
@@ -103,7 +101,6 @@ void MainWindow::accept(){
         save_flag = false;
     }
     pfmutex.unlock();
-    //sleep(1);		//for test
 }
 
 void MainWindow::on_pushButton_save_img_clicked()
@@ -133,7 +130,7 @@ void MainWindow::on_pushButton_clear_clicked()
 void MainWindow::on_pushButton_start_calib_clicked()
 {
     myWriteXML(frames);
-    std::cout<<frames<<std::endl;
+    std::cout<<"toatal frames: "<<frames<<std::endl;
     sleep(1);
     myBinocularCalibration();
 }

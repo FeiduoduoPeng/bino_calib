@@ -6,15 +6,15 @@
 
 #IncludeRegexTransform: 
 
-/home/leisure/mt/calibration_opencv/stereo_calib.cpp
+/home/leisure/bino_calib/mt1023/calibration_opencv/stereo_calib.cpp
 opencv2/calib3d.hpp
-/home/leisure/mt/calibration_opencv/opencv2/calib3d.hpp
+/home/leisure/bino_calib/mt1023/calibration_opencv/opencv2/calib3d.hpp
 opencv2/imgcodecs.hpp
-/home/leisure/mt/calibration_opencv/opencv2/imgcodecs.hpp
+/home/leisure/bino_calib/mt1023/calibration_opencv/opencv2/imgcodecs.hpp
 opencv2/highgui.hpp
-/home/leisure/mt/calibration_opencv/opencv2/highgui.hpp
+/home/leisure/bino_calib/mt1023/calibration_opencv/opencv2/highgui.hpp
 opencv2/imgproc.hpp
-/home/leisure/mt/calibration_opencv/opencv2/imgproc.hpp
+/home/leisure/bino_calib/mt1023/calibration_opencv/opencv2/imgproc.hpp
 vector
 -
 string

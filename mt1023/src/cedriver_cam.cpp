@@ -37,7 +37,6 @@
 #define LOG         printf
 
 
-std::mutex pfmutex;
 libusb_device_handle *pcaml_handle;
 libusb_device_handle *pcamr_handle;
 
@@ -598,7 +597,6 @@ static void* ce_cam_showimg(lrImg &plr)
                 continue;
         }
 
-        pfmutex.lock();
         memcpy(img_left.data, img_lr_pkg->left_img->data, ce_config_get_cf_img_size());
         //cv::imshow("left",img_left);
         std::cout << "left tamps:" << std::setprecision(15) << img_lr_pkg->left_img->timestamp << std::endl;
@@ -606,8 +604,6 @@ static void* ce_cam_showimg(lrImg &plr)
         memcpy(img_right.data,img_lr_pkg->right_img->data,ce_config_get_cf_img_size());
         //cv::imshow("right",img_right);
         std::cout << "right tamps:" << std::setprecision(15) << img_lr_pkg->right_img->timestamp << std::endl;
-        pfmutex.unlock();
-        
 
         plr.left = img_left.clone();
         plr.right = img_right.clone();
